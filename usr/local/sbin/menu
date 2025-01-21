@@ -1,0 +1,88 @@
+#!/bin/bash
+
+# Main MENU system for HBlink3 Control
+
+while :; do
+    # Display the menu
+    clear
+    echo "==========================================="
+    echo " HBlink3 Control Version"
+    echo "==========================================="
+    echo "Select an option by entering the corresponding number:"
+    echo "1) Stop HBlink"
+    echo "2) Start HBlink"
+    echo "3) Restart HBlink"
+    echo "4) Update HBlink / Docker"
+    echo "5) Flush HBlink / Truncate Logs"
+    echo "6) Edit HBlink Config"
+    echo "7) Edit HBlink Rules"
+    echo "8) Edit Dashboard Config"
+    echo "9) Full Upgrade OBPMaster"
+    echo "10) System Update / apt update"
+    echo "11) Reboot Entire Server"
+    echo "12) Shutdown Entire Server"
+    echo "==========================================="
+    read -p "Enter your choice: " menuopt
+
+    # Perform actions based on user's selection
+    case $menuopt in
+        1)
+            echo "Stopping HBlink..."
+            sudo /usr/local/sbin/hblink-stop
+            ;;
+        2)
+            echo "Starting HBlink..."
+            sudo /usr/local/sbin/hblink-start
+            ;;
+        3)
+            echo "Restarting HBlink..."
+            sudo /usr/local/sbin/hblink-restart
+            ;;
+        4)
+            echo "Updating HBlink / Docker..."
+            sudo /usr/local/sbin/hblink-update
+            ;;
+        5)
+            echo "Flushing HBlink and truncating logs..."
+            sudo /usr/local/sbin/hblink-flush
+            ;;
+        6)
+            echo "Editing HBlink Config..."
+            sudo nano /etc/hblink3/hblink.cfg
+            ;;
+        7)
+            echo "Editing HBlink Rules..."
+            sudo nano /etc/hblink3/rules.py
+            ;;
+        8)
+            echo "Editing Dashboard Config..."
+            sudo nano /opt/HBMonv2/config.py
+            ;;
+        9)
+            echo "Performing full upgrade of OBPMaster..."
+            sudo /usr/local/sbin/hblink-upgrade
+            ;;
+        10)
+            echo "Performing system update..."
+            sudo apt-get update -y && sudo apt-get upgrade
+            ;;
+        11)
+            echo "Rebooting the server..."
+            sudo reboot
+            ;;
+        12)
+            echo "Shutting down the server..."
+            sudo shutdown now
+            exit 0
+            ;;
+        *)
+            echo "Invalid option. Please enter a number between 1 and 12."
+            ;;
+    esac
+
+    # Pause before redisplaying the menu
+    read -p "Press Enter to return to the menu..."
+done
+
+# Exit the script
+exit 0

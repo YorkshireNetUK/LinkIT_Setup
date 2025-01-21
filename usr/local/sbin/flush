@@ -1,0 +1,86 @@
+#!/bin/bash
+
+# Flush routine for HBlink3
+# This script stops services, cleans logs, and restarts everything.
+
+echo "Stopping services..."
+sleep 1
+
+# Stop HBlink3
+echo "Stopping HBlink3 (if not already stopped)..."
+cd /etc/hblink3 || exit
+docker-compose down
+echo "HBlink3 stopped."
+sleep 1
+
+# Stop Dashboard
+echo "Stopping Dashboard..."
+systemctl stop hbmon
+echo "Dashboard stopped."
+sleep 1
+
+echo "HBlink3 Flush and maintenance loop starting..."
+sleep 1
+
+# Truncate logs
+echo "Truncating main log folder: /var/log..."
+find /var/log -type f -name "*log" -exec truncate -s 0 {} \;
+echo "Main logs truncated."
+
+echo "Truncating HBlink3 logs: /var/log/hblink..."
+find /var/log/hblink -type f -name "*log" -exec truncate -s 0 {} \;
+echo "HBlink3 logs truncated."
+
+echo "Truncating Lastheard logs: /opt/HBMonv2/log..."
+find /opt/HBMonv2/log -type f -name "*log" -exec truncate -s 0 {} \;
+echo "Lastheard logs truncated."
+
+# Restart services
+echo "Restarting all services..."
+sleep 1
+
+echo "Restarting Docker service..."
+systemctl restart docker
+echo "Docker restarted."
+sleep 1
+
+echo "Restarting Apache2 service..."
+systemctl restart apache2
+echo "Apache2 restarted."
+sleep 1
+
+# Start HBlink3
+echo "Starting HBlink3..."
+sleep 1
+docker-compose up -d
+echo "HBlink3 started."
+
+figlet "HBlink 3"
+sleep 1
+
+# Check status
+echo "Checking HBlink services..."
+docker ps
+sleep 3
+
+# Check logs for errors
+echo "Checking startup error logs for HBlink3..."
+docker container logs hblink
+echo "Error log check complete."
+
+# Flush network tracking table
+echo "Flushing network tracking table..."
+conntrack -F
+echo "Network tracking table flushed."
+sleep 1
+
+# Start Dashboard
+echo "Starting Dashboard..."
+systemctl restart hbmon
+figlet "HBMonv2"
+echo "Dashboard started."
+sleep 1
+
+# Completion message
+echo "All systems have been flushed, cleaned, and restarted successfully."
+echo "HBlink3 is now online. Flush complete. You may now exit."

@@ -1,0 +1,68 @@
+#!/bin/bash
+
+# Initial Setup MENU system for HBLink3 Docker
+
+while :; do
+    # Display the menu
+    clear
+    echo "==========================================="
+    echo " INITIAL SETUP - HBLINK3 DOCKER 1.9PL"
+    echo "==========================================="
+    echo "Select an option by entering the corresponding number:"
+    echo "1) Re-Install"
+    echo "2) Bash Shell (Type 'exit' to return to menu)"
+    echo "3) Edit HBlink Config"
+    echo "4) Edit HBlink Rules"
+    echo "5) Edit Dashboard Config (Advanced)"
+    echo "6) Edit Dashboard PHP Config (Advanced)"
+    echo "7) System Update / apt update"
+    echo "8) Finish Setup & Exit"
+    echo "==========================================="
+    read -p "Enter your choice: " menuopt
+
+    # Perform actions based on user's selection
+    case $menuopt in
+        1)
+            echo "Re-Installing HBLink3..."
+            sudo /opt/hblink3-docker-install/hblink3-docker-install.sh
+            ;;
+        2)
+            echo "Entering Bash Shell. Type 'exit' to return to the menu."
+            sudo /usr/bin/bash
+            ;;
+        3)
+            echo "Opening HBlink Config for editing..."
+            sudo nano /etc/hblink3/hblink.cfg
+            ;;
+        4)
+            echo "Opening HBlink Rules for editing..."
+            sudo nano /etc/hblink3/rules.py
+            ;;
+        5)
+            echo "Opening Dashboard Config for editing..."
+            sudo nano /opt/HBMonv2/config.py
+            ;;
+        6)
+            echo "Opening Dashboard PHP Config for editing..."
+            sudo nano /var/www/html/include/config.php
+            ;;
+        7)
+            echo "Performing system update..."
+            sudo apt update && sudo apt upgrade
+            ;;
+        8)
+            echo "Finishing setup and exiting..."
+            sudo hblink-flush
+            exit 0
+            ;;
+        *)
+            echo "Invalid option. Please enter a number between 1 and 8."
+            ;;
+    esac
+
+    # Pause before redisplaying the menu
+    read -p "Press Enter to return to the menu..."
+done
+
+# Exit the script
+exit 0

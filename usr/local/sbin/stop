@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# Stop routine for HBlink3
+
+# Stops services and performs clean shutdown
+
+clear
+
+echo "Stopping HBlink3..."
+
+# Navigate to the HBlink3 directory
+cd /etc/hblink3 || { echo "Error: /etc/hblink3 not found. Exiting."; exit 1; }
+sleep 2
+
+# Visual delay
+for i in "." ".." "..."; do
+    echo "$i"
+    sleep 1
+done
+
+# Stop Docker containers
+docker-compose down
+echo "HBlink3 services stopped."
+sleep 1
+
+# Stop the Dashboard
+echo "Stopping Dashboard..."
+systemctl stop hbmon
+
+# Display "HBMonv2" using figlet (ensure figlet is installed)
+if command -v figlet > /dev/null; then
+    figlet "HBMonv2"
+else
+    echo "HBMonv2"
+fi
+echo "Dashboard stopped."
+sleep 1
+
+# Exit message
+echo "Done. Now exiting..."
+for i in "." ".." "..."; do
+    echo "$i"
+    sleep 1
+done
+
+echo "HBlink3 is now stopped."

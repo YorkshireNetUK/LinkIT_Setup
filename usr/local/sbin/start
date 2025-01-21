@@ -1,0 +1,74 @@
+#!/bin/bash
+
+# Start routine for HBlink3
+
+# Starts services and performs checks/logs
+
+clear
+
+echo "Starting HBlink3..."
+
+# Navigate to the HBlink3 directory
+cd /etc/hblink3 || { echo "Error: /etc/hblink3 not found. Exiting."; exit 1; }
+sleep 1
+
+# Visual delay
+for i in "." ".." "..."; do
+    echo "$i"
+    sleep 1
+done
+
+# Start Docker containers
+docker-compose up -d
+sleep 1
+
+# Display "HBlink 3" using figlet (ensure figlet is installed)
+if command -v figlet > /dev/null; then
+    figlet "HBlink 3"
+else
+    echo "HBlink 3"
+fi
+sleep 1
+
+# Check Docker container status
+echo "Checking HBlink Docker containers..."
+docker ps
+sleep 3
+
+# Check startup error logs
+echo "Checking startup error logs..."
+docker container logs hblink
+echo "Done."
+sleep 1
+
+# Flush network tracking table
+echo "Flushing network tracking table..."
+if command -v conntrack > /dev/null; then
+    conntrack -F
+    echo "Network tracking table flushed."
+else
+    echo "conntrack command not found. Skipping."
+fi
+sleep 1
+
+# Start the Dashboard
+echo "Starting Dashboard..."
+systemctl restart hbmon
+
+# Display "HBMonv2" using figlet (ensure figlet is installed)
+if command -v figlet > /dev/null; then
+    figlet "HBMonv2"
+else
+    echo "HBMonv2"
+fi
+echo "Done."
+sleep 1
+
+# Exit message
+echo "Done. Now exiting..."
+for i in "." ".." "..."; do
+    echo "$i"
+    sleep 1
+done
+
+echo "HBlink3 is now online. Start process is complete, and you may now exit."
