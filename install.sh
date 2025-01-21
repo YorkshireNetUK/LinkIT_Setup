@@ -153,7 +153,7 @@ sleep 2
                 pip3 install setuptools wheel
                 pip3 install -r requirements.txt
                 pip3 install attrs --force
-        echo Install /opt/HBMonv2/config.py ...
+        echo Install /opt/LinkIT_Dash/config.py ...
 cat << EOF > /opt/HBMonv2/config.py
 CONFIG_INC      = True                           # Include HBlink stats
 HOMEBREW_INC    = True                           # Display Homebrew Peers status
@@ -198,7 +198,7 @@ echo "--------------------------------------------------------------------------
 sleep 2
                 cd /var/www/html/
                 mv /var/www/html/index.html /var/www/html/index_APACHE.html
-                cp -a /opt/HBMonv2/html/. /var/www/html/
+                cp -a /opt/LinkIT_Dash/html/. /var/www/html/
 if [ -e info.php ]
 then
         echo "------------------------------------------------------------------------------------"
