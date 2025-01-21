@@ -89,7 +89,7 @@ echo "Done."
 echo "------------------------------------------------------------------------------"
 echo "Installing control scripts /usr/local/sbin....."
 echo "------------------------------------------------------------------------------"
-        cd /opt/hblink3-docker-install/usr/local/sbin
+        cd /opt/LinkIT_Setup/usr/local/sbin
         cp -p menu /usr/local/sbin/hblink-menu
         cp -p flush /usr/local/sbin/hblink-flush
         cp -p update /usr/local/sbin/hblink-update
