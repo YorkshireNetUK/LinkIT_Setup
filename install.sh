@@ -1,38 +1,7 @@
 #!/bin/bash
 # Docker version alpine-3.18
-# Version 14112024 hblink3-docker-installer
-#
-##################################################################################
-#   Copyright (C) 2021-2024 Shane Daley, M0VUB aka ShaYmez. <support@gb7nr.co.uk>
-#
-#   This program is free software; you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation; either version 3 of the License, or
-#   (at your option) any later version.
-#
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-#   You should have received a copy of the GNU General Public License
-#   along with this program; if not, write to the Free Software Foundation,
-#   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
-##################################################################################
-#
-# A tool to install HBlink3 Docker with Debian 10-11 / Ubuntu 20.04 support.
-# This essentially is a HBlink3 server fully installed with dashboard ready to go.
-# Step 1: Install Debian 10 or 11 or Ubuntu 20.04 and make sure it has internet and is up to date.
-# Step 2: Run this script on the computer.
-# Step 4: Reboot after installation.
-# This is a docker version and you can use the following comands to control / maintain your server
-# cd /etc/hblink3
-# docker-compose up -d (starts the hblink3 docker container)
-# docker-compose down (shuts down the hblink container and stops the service)
-# docker-compose pull (updates the container to the latest docker image)
-# systemctl |stop|start|restart|status hbmon (controls the HBMonv2 dash service)
-# logs can be found in var/log/hblink or docker comand "docker container logs hblink"
-#Lets begin-------------------------------------------------------------------------------------------------
+# Version hblink3
+#-------------------------------------------------------------------------------------------------
 if [ "$EUID" -ne 0 ];
 then
   echo ""
@@ -61,8 +30,8 @@ HBDIR=/etc/hblink3/
 DEP="wget curl git sudo python3 python3-dev python3-pip libffi-dev libssl-dev conntrack sed cargo apache2 php snapd figlet ca-certificates gnupg lsb-release"
 DEP1="wget curl git sudo python3 python3-dev python3-pip libffi-dev libssl-dev conntrack sed cargo apache2 php snapd figlet ca-certificates gnupg lsb-release"
 DEP2="wget sudo curl git python3 python3-dev python3-pip libffi-dev libssl-dev conntrack sed cargo apache2 php php-mysqli snapd figlet ca-certificates gnupg lsb-release"
-HBGITREPO=https://github.com/ShaYmez/hblink3.git
-HBGITMONREPO=https://github.com/ShaYmez/HBMonv2.git
+HBGITREPO=https://github.com/YorkshireNetUK/LinkIT_Main.git
+HBGITMONREPO=https://github.com/YorkshireNetUK/LinkIT_Dash.git
 echo ""
 echo "------------------------------------------------------------------------------"
 echo "Downloading and installing required software & dependencies....."
@@ -140,6 +109,7 @@ then
         echo "-----------------------------------------------------------------------------------------------"
         exit 0
 fi
+
 # Permissions for control scripts are set here...
         chmod 755 /usr/local/sbin/hblink-menu
         chmod 755 /usr/local/sbin/hblink-flush
@@ -150,7 +120,8 @@ fi
         chmod 755 /usr/local/sbin/hblink-restart
         chmod 755 /usr/local/sbin/hblink-initial-setup
 echo "Done."
-        
+
+
 echo "------------------------------------------------------------------------------"
 echo "Downloading and installing HBMonv2 Dashboard....."
 echo "------------------------------------------------------------------------------"
@@ -270,7 +241,7 @@ sleep 2
          echo get json files...
          cd /etc/hblink3/json
          curl https://radioid.net/static/users.json -o subscriber_ids.json
-         curl https://freestar.network/downloads/talkgroup_ids.json -o talkgroup_ids.json
+         curl https://db.m0xyn.radio/talkgroup_ids.json -o talkgroup_ids.json
          curl https://radioid.net/static/rptrs.json -o peer_ids.json
 echo "Done"
 echo ""
@@ -514,7 +485,7 @@ LONGITUDE: -095.0000
 HEIGHT: 75
 LOCATION: United Kingdom
 DESCRIPTION: This is a very cool repeater
-URL: www.freestar.network
+URL: www.qsos.uk
 SOFTWARE_ID: 20230103
 PACKAGE_ID: MMDVM_HBlink3
 GROUP_HANGTIME: 5
@@ -566,7 +537,7 @@ person, think of these as "bridge groups". You might also liken them to a "refle
 system is "ACTIVE" on a particular conference bridge, any traffid from that system will be sent
 to any other system that is active on the bridge as well. This is not an "end to end" method, because
 each system must independently be activated on the bridge.
-The first level (e.g. "FREESTAR" or "CQ-UK" in the examples) is the name of the conference
+The first level (e.g. "YorkshireNet" or "Ears-Radio" in the examples) is the name of the conference
 bridge. This is any arbitrary ASCII text string you want to use. Under each conference bridge
 definition are the following items -- one line for each HBSystem as defined in the main HBlink
 configuration file.
@@ -595,17 +566,17 @@ BRIDGES = {
             {'SYSTEM': 'MASTER-1',   'TS': 2, 'TGID': 9999, 'ACTIVE': True, 'TIMEOUT': 0, 'TO_TYPE': 'NONE',  'ON': [9999],  'OFF': [], 'RESET': []},
 #            {'SYSTEM': 'Parrot',     'TS': 2, 'TGID': 9999, 'ACTIVE': True, 'TIMEOUT': 0, 'TO_TYPE': 'NONE',  'ON': [],      'OFF': [], 'RESET': []},
         ],
-    'FREESTAR': [
-            {'SYSTEM': 'MASTER-1',    'TS': 1, 'TGID': 325,    'ACTIVE': True, 'TIMEOUT': 2, 'TO_TYPE': 'ON',  'ON': [2,], 'OFF': [9,10], 'RESET': []},
-#            {'SYSTEM': 'CLIENT-1',    'TS': 1, 'TGID': 325, 'ACTIVE': True, 'TIMEOUT': 2, 'TO_TYPE': 'ON',  'ON': [2,], 'OFF': [9,10], 'RESET': []},
+    'YORKSHIRE-NET': [
+            {'SYSTEM': 'MASTER-1',    'TS': 1, 'TGID': 23450,    'ACTIVE': True, 'TIMEOUT': 0, 'TO_TYPE': 'NONE',  'ON': [], 'OFF': [], 'RESET': []},
+#            {'SYSTEM': 'CLIENT-1',    'TS': 1, 'TGID': 23450, 'ACTIVE': True, 'TIMEOUT': 0, 'TO_TYPE': 'NONE',  'ON': [], 'OFF': [], 'RESET': []},
         ],
-     'CQ-UK': [
-            {'SYSTEM': 'MASTER-1',    'TS': 1, 'TGID': 2351,   'ACTIVE': True, 'TIMEOUT': 2, 'TO_TYPE': 'NONE', 'ON': [3,], 'OFF': [8,10], 'RESET': []},
-#            {'SYSTEM': 'CLIENT-2',    'TS': 1, 'TGID': 2351,   'ACTIVE': True, 'TIMEOUT': 2, 'TO_TYPE': 'NONE', 'ON': [3,], 'OFF': [8,10], 'RESET': []},
+     'EAR-RADIO': [
+            {'SYSTEM': 'MASTER-1',    'TS': 1, 'TGID': 23451,   'ACTIVE': True, 'TIMEOUT': 0, 'TO_TYPE': 'NONE', 'ON': [], 'OFF': [], 'RESET': []},
+#            {'SYSTEM': 'CLIENT-2',    'TS': 1, 'TGID': 23451,   'ACTIVE': True, 'TIMEOUT': 0, 'TO_TYPE': 'NONE', 'ON': [], 'OFF': [], 'RESET': []},
         ],
-     'CHATTERBOX': [
-            {'SYSTEM': 'MASTER-1',    'TS': 2, 'TGID': 2350, 'ACTIVE': True, 'TIMEOUT': 2, 'TO_TYPE': 'NONE', 'ON': [4,], 'OFF': [7,10], 'RESET': []},
-#            {'SYSTEM': 'CLIENT-2',    'TS': 2, 'TGID': 2350, 'ACTIVE': True, 'TIMEOUT': 2, 'TO_TYPE': 'NONE', 'ON': [4,], 'OFF': [7,10], 'RESET': []},
+     'DVSPH': [
+            {'SYSTEM': 'MASTER-1',    'TS': 2, 'TGID': 23556, 'ACTIVE': True, 'TIMEOUT': 0, 'TO_TYPE': 'NONE', 'ON': [], 'OFF': [], 'RESET': []},
+#            {'SYSTEM': 'CLIENT-2',    'TS': 2, 'TGID': 23556, 'ACTIVE': True, 'TIMEOUT': 0, 'TO_TYPE': 'NONE', 'ON': [], 'OFF': [], 'RESET': []},
         ]
 }
 
@@ -668,7 +639,7 @@ echo "--------------------------------------------------------------------------
 echo ""
 echo ""
 echo "------------------------------------------------------------------------------"
-echo "Wake up the docker container and pull latest docker image from ShaYmez....."
+echo "Wake up the docker container and pull latest docker image from Yorkshire Net....."
 echo "------------------------------------------------------------------------------"
         docker-compose up -d
         sleep 10
@@ -707,49 +678,9 @@ sleep 2
 echo "Starting HBmon....."
         systemctl enable hbmon
         systemctl start hbmon
-figlet "HBMonV2"
-echo ""
-echo ""
-clear
+
 sleep 2
-echo "HBlink First Time Setup....."
-sleep 1
-figlet "WhipTAIL'"
-        hblink-initial-setup
-sleep 1
 echo "Done."
-echo ""
-echo ""
-echo "*************************************************************************"
-echo ""
-echo "                 The HBlink3 Docker Install Is Complete!                 "
-echo ""
-echo "              ******* To Update run 'hblink-update *******               "
-echo ""
-echo "        Use 'docker container logs hblink' to check the status.          "
-echo "                  logs are parked in /var/log/hblink.                    "
-echo "  Just make sure this computer can be accessed over UDP specified port   "
-echo "  You will need to edit your config and then run the following command   "
-echo ""
-echo "                    Type 'hblink-menu' for main menu                     "
-echo "                Use the menu to edit your server / config                "
-echo "        Refer to the official HBlink Repo for more documentation         "
-echo "                 https://github.com/HBLink-org/hblink3                   "
-echo ""
-echo "             Check out the docker installer of HBlink3 here              "
-echo "            https://github.com/ShaYmez/hblink3-docker-install            "
-echo ""
-echo "                      Your IP address is $LOCAL_IP                       "
-echo ""
-echo "               Your running on $ARC with Debian $VERSION                 "
-echo ""           
-echo "                     Thanks for using this script.                       "
-echo "                 Copyright © 2024 Shane Daley - M0VUB                    "
-echo "      More information can be found @ https://github.com/shaymez/        "
-echo ""
-echo "*************************************************************************"
-echo ""
-echo ""
 sleep 1
-echo "Thanks for using the HBlink Docker Installer!"
+echo "Thanks for Installing HbLink3!"
 exit
