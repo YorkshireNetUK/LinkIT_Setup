@@ -154,7 +154,7 @@ sleep 2
                 pip3 install -r requirements.txt
                 pip3 install attrs --force
         echo Install /opt/LinkIT_Dash/config.py ...
-cat << EOF > /opt/HBMonv2/config.py
+cat << EOF > /opt/LinkIT_Dash/config.py
 CONFIG_INC      = True                           # Include HBlink stats
 HOMEBREW_INC    = True                           # Display Homebrew Peers status
 LASTHEARD_INC   = True                           # Display lastheard table on main page
@@ -215,10 +215,10 @@ echo "Done."
 echo "Install crontab..."
 cat << EOF > /etc/cron.daily/lastheard
 #!/bin/bash
-mv /opt/HBMonv2/log/lastheard.log /opt/HBMonv2/log/lastheard.log.save
-/usr/bin/tail -150 /opt/HBMonv2/log/lastheard.log.save > /opt/HBMonv2/log/lastheard.log
-mv /opt/HBMonv2/log/lastheard.log /opt/HBMonv2/log/lastheard.log.save
-/usr/bin/tail -150 /opt/HBMonv2/log/lastheard.log.save > /opt/HBMonv2/log/lastheard.log
+mv /opt/LinkIT_Dash/log/lastheard.log /opt/LinkIT_Dash/log/lastheard.log.save
+/usr/bin/tail -150 /opt/LinkIT_Dash/log/lastheard.log.save > /opt/LinkIT_Dash/log/lastheard.log
+mv /opt/LinkIT_Dash/log/lastheard.log /opt/LinkIT_Dash/log/lastheard.log.save
+/usr/bin/tail -150 /opt/LinkIT_Dash/log/lastheard.log.save > /opt/LinkIT_Dash/log/lastheard.log
 EOF
 chmod 755 /etc/cron.daily/lastheard
 
