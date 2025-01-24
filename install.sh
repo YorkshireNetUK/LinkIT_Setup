@@ -676,8 +676,8 @@ sleep 3
 echo "Done."
 sleep 2
 echo "Starting HBmon....."
-        systemctl enable hbmon
-        systemctl start hbmon
+        systemctl disable hbmon
+        systemctl stop hbmon
 
 sleep 2
 echo "Done."
