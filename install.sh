@@ -596,6 +596,22 @@ if __name__ == '__main__':
     pprint(BRIDGES)
     print(UNIT)
 EOF
+
+# Add Talk To Hosted Rules
+cat << EOF > /etc/docker/daemon.json
+{
+  "features": {
+    "host-gateway": true
+  }
+}
+EOF
+
+echo "------------------------------------------------------------------------------"
+echo "Restart Docker"
+echo "------------------------------------------------------------------------------"
+sleep 2
+systemctl restart docker
+
 echo ""
 echo ""
 echo "------------------------------------------------------------------------------"
@@ -682,5 +698,5 @@ echo "Starting HBmon....."
 sleep 2
 echo "Done."
 sleep 1
-echo "Thanks for Installing HbLink3!"
+echo "Thanks for Installing HbLink3 From The YorkshireDMR Team!"
 exit
