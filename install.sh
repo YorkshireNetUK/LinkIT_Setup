@@ -204,11 +204,6 @@ then
         echo "------------------------------------------------------------------------------------"
         echo "It looks like the dashboard installed correctly. The installation will now proceed. "
         echo "------------------------------------------------------------------------------------"
-        else
-        echo "-----------------------------------------------------------------------------------------------"
-        echo "I dont see the dashboard installed! Please check your configuration and try again. Exiting....."
-        echo "-----------------------------------------------------------------------------------------------"
-        exit 0
 fi
 echo "Done."
 
