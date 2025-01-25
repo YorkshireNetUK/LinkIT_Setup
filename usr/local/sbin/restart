@@ -49,17 +49,17 @@ fi
 sleep 1
 
 # Restart the Dashboard
-echo "Restarting Dashboard..."
-systemctl restart hbmon
+#echo "Restarting Dashboard..."
+#systemctl restart hbmon
 
 # Display "HBmonitor3" using figlet (ensure figlet is installed)
-if command -v figlet > /dev/null; then
-    figlet "HBmonitor3"
-else
-    echo "HBmonitor3"
-fi
-echo "Done."
-sleep 1
+#if command -v figlet > /dev/null; then
+#    figlet "HBmonitor3"
+#else
+#    echo "HBmonitor3"
+#fi
+#echo "Done."
+#sleep 1
 
 # Exit message
 echo "Now exiting..."
