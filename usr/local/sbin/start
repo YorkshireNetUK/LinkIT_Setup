@@ -52,17 +52,17 @@ fi
 sleep 1
 
 # Start the Dashboard
-echo "Starting Dashboard..."
-systemctl restart hbmon
+#echo "Starting Dashboard..."
+#systemctl restart hbmon
 
 # Display "HBMonv2" using figlet (ensure figlet is installed)
-if command -v figlet > /dev/null; then
-    figlet "HBMonv2"
-else
-    echo "HBMonv2"
-fi
-echo "Done."
-sleep 1
+#if command -v figlet > /dev/null; then
+#    figlet "HBMonv2"
+#else
+#    echo "HBMonv2"
+#fi
+#echo "Done."
+#sleep 1
 
 # Exit message
 echo "Done. Now exiting..."
