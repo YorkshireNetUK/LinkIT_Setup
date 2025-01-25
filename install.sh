@@ -196,9 +196,9 @@ echo "--------------------------------------------------------------------------
 echo "Installing HBMonv2 HTML Dashboard....."
 echo "------------------------------------------------------------------------------"
 sleep 2
-                cd /var/www/html/
-                mv /var/www/html/index.html /var/www/html/index_APACHE.html
-                cp -a /opt/LinkIT_Dash/html/. /var/www/html/
+#                cd /var/www/html/
+#               mv /var/www/html/index.html /var/www/html/index_APACHE.html
+#                cp -a /opt/LinkIT_Dash/html/. /var/www/html/
 if [ -e info.php ]
 then
         echo "------------------------------------------------------------------------------------"
