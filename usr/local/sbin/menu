@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Main MENU system for HBlink3 Control
+# Main MENU system for HBlink3 YorkshireDMR
 
 while :; do
     # Display the menu
@@ -12,15 +12,13 @@ while :; do
     echo "1) Stop HBlink"
     echo "2) Start HBlink"
     echo "3) Restart HBlink"
-    echo "4) Update HBlink / Docker"
-    echo "5) Flush HBlink / Truncate Logs"
-    echo "6) Edit HBlink Config"
-    echo "7) Edit HBlink Rules"
-    echo "8) Edit Dashboard Config"
-    echo "9) Full Upgrade OBPMaster"
-    echo "10) System Update / apt update"
-    echo "11) Reboot Entire Server"
-    echo "12) Shutdown Entire Server"
+    echo "4) Flush HBlink / Truncate Logs"
+    echo "5) Edit HBlink Config"
+    echo "6) Edit HBlink Rules"
+    echo "7) Edit Dashboard Config"
+    echo "8) System Update / apt update"
+    echo "9) Reboot Entire Server"
+    echo "10) Shutdown Entire Server"
     echo "==========================================="
     read -p "Enter your choice: " menuopt
 
@@ -38,45 +36,39 @@ while :; do
             echo "Restarting HBlink..."
             sudo /usr/local/sbin/hblink-restart
             ;;
+
         4)
-            echo "Updating HBlink / Docker..."
-            sudo /usr/local/sbin/hblink-update
-            ;;
-        5)
             echo "Flushing HBlink and truncating logs..."
             sudo /usr/local/sbin/hblink-flush
             ;;
-        6)
+        5)
             echo "Editing HBlink Config..."
             sudo nano /etc/hblink3/hblink.cfg
             ;;
-        7)
+        6)
             echo "Editing HBlink Rules..."
             sudo nano /etc/hblink3/rules.py
             ;;
-        8)
+        7)
             echo "Editing Dashboard Config..."
             sudo nano /opt/HBMonv2/config.py
             ;;
-        9)
-            echo "Performing full upgrade of OBPMaster..."
-            sudo /usr/local/sbin/hblink-upgrade
-            ;;
-        10)
+
+        8)
             echo "Performing system update..."
             sudo apt-get update -y && sudo apt-get upgrade
             ;;
-        11)
+        9)
             echo "Rebooting the server..."
             sudo reboot
             ;;
-        12)
+        10)
             echo "Shutting down the server..."
             sudo shutdown now
             exit 0
             ;;
         *)
-            echo "Invalid option. Please enter a number between 1 and 12."
+            echo "Invalid option. Please enter a number between 1 and 10."
             ;;
     esac
 
