@@ -595,6 +595,7 @@ EOF
 # Add Talk To Hosted Rules
 cat << EOF > /etc/docker/daemon.json
 {
+  "userland-proxy": false,
   "features": {
     "host-gateway": true
   }
