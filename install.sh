@@ -196,9 +196,9 @@ echo "--------------------------------------------------------------------------
 echo "Installing HBMonv2 HTML Dashboard....."
 echo "------------------------------------------------------------------------------"
 sleep 2
-#                cd /var/www/html/
-#               mv /var/www/html/index.html /var/www/html/index_APACHE.html
-#                cp -a /opt/LinkIT_Dash/html/. /var/www/html/
+               cd /var/www/html/
+               mv /var/www/html/index.html /var/www/html/index_APACHE.html
+               cp -a /opt/LinkIT_Dash/html/. /var/www/html/
 if [ -e info.php ]
 then
         echo "------------------------------------------------------------------------------------"
@@ -687,9 +687,16 @@ sleep 3
         docker container logs hblink
 echo "Done."
 sleep 2
+
+sudo mkdir -p /root/log
+sudo chmod 755 /root/log
+sudo touch /root/log/hbmon.log
+sudo chmod 666 /root/log/hbmon.log
+sudo systemctl daemon-reload
+
 echo "Starting HBmon....."
-        systemctl disable hbmon
-        systemctl stop hbmon
+        systemctl enable hbmon
+        systemctl start hbmon
 
 sleep 2
 echo "Done."
